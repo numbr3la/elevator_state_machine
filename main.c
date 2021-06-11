@@ -22,7 +22,7 @@
 #define BLINK_TIME_MS   1000
 
 typedef enum {
-    STATE_IDLE,
+            STATE_IDLE,
             STATE_GOINGUP,
             STATE_GOINGDOWN,
             STATE_DOOROPEN,
