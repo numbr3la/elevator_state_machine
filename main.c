@@ -18,6 +18,17 @@
 
 #include <xc.h>
 
+#define _XTAL_FREQ      1000000UL 
+#define BLINK_TIME_MS   1000
+
+typedef enum {
+    STATE_IDLE,
+            STATE_GOINGUP,
+            STATE_GOINGDOWN,
+            STATE_DOOROPEN,
+            STATE_DOORCLOSED
+    
+}STATE_t;
 
 void main(void) {
     
