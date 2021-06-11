@@ -26,7 +26,9 @@ typedef enum {
             STATE_GOINGUP,
             STATE_GOINGDOWN,
             STATE_DOOROPEN,
-            STATE_DOORCLOSED
+            STATE_DOORCLOSED,
+            STATE_ATTOP,
+            STATE_ATBOTTOM
     
 }STATE_t;
 
