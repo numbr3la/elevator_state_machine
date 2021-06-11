@@ -24,7 +24,7 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 
 
 # Project Name
-PROJECTNAME=Winda.X
+PROJECTNAME=Maszyna_stanowa
 
 # Active Configuration
 DEFAULTCONF=default
