@@ -33,7 +33,8 @@
  * 
 */ 
 
-#include "board4_xtal.h"
+//#include "board4_xtal.h"
+#define _XTAL_FREQ      1000000UL 
 
 // Hitachi HD44780 LCD display driver chip protocol
 

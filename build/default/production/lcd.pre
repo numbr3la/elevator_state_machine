@@ -1,16 +1,5 @@
 
-# 1 "main.c"
-
-
-# 7
-#pragma config FOSC = EXTRC
-#pragma config WDTE = OFF
-#pragma config PWRTE = OFF
-#pragma config BOREN = ON
-#pragma config LVP = ON
-#pragma config CPD = OFF
-#pragma config WRT = OFF
-#pragma config CP = OFF
+# 1 "lcd.c"
 
 # 26 "E:\Program Files\Microchip\xc8\v1.45\include\htc.h"
 extern const char __xc8_OPTIM_SPEED;
@@ -1471,22 +1460,57 @@ extern __bank0 unsigned char __resetbits;
 extern __bank0 __bit __powerdown;
 extern __bank0 __bit __timeout;
 
-# 24 "main.c"
-typedef enum {
-STATE_IDLE,
-STATE_GOINGUP,
-STATE_GOINGDOWN,
-STATE_DOOROPEN,
-STATE_DOORCLOSED,
-STATE_ATTOP,
-STATE_ATBOTTOM
+# 70 "lcd.h"
+void LCD_Init(void);
+void LCD_Cmd(unsigned char value);
+void LCD_Data(unsigned char value);
+void LCD_String(const char* str);
 
-}STATE_t;
+# 29 "lcd.c"
+void LCD_Init(void) {
+PORTEbits.RE1 = 0;
+PORTEbits.RE2 = 0; _delay((unsigned long)((20)*(1000000UL/4000.0)));
+PORTEbits.RE1 = 1;
 
-void main(void) {
+LCD_Cmd(0x38); _delay((unsigned long)((5)*(1000000UL/4000.0)));
+LCD_Cmd(0x38); _delay((unsigned long)((1)*(1000000UL/4000.0)));
+LCD_Cmd(0x38);
 
-
-
-
-return;
+LCD_Cmd(0x08);
+LCD_Cmd(0x0F);
+LCD_Cmd(0x01);
+LCD_Cmd(0x38);
+LCD_Cmd(0x80);
 }
+
+
+void WriteLCDPort(unsigned char value) {
+PORTD = value;
+}
+
+
+void LCD_Cmd(unsigned char value) {
+PORTEbits.RE1 = 1;
+WriteLCDPort(value);
+PORTEbits.RE2 = 0; _delay((unsigned long)((3)*(1000000UL/4000.0)));
+PORTEbits.RE1 = 0; _delay((unsigned long)((3)*(1000000UL/4000.0)));
+PORTEbits.RE1=1;
+}
+
+void LCD_Data(unsigned char value) {
+PORTEbits.RE1 = 1;
+WriteLCDPort(value);
+PORTEbits.RE2 = 1; _delay((unsigned long)((3)*(1000000UL/4000.0)));
+PORTEbits.RE1 = 0; _delay((unsigned long)((3)*(1000000UL/4000.0)));
+PORTEbits.RE1 = 1;
+}
+
+void LCD_String(const char* str) {
+unsigned char i=0;
+
+while(str[i] != '\0' ) {
+LCD_Data(str[i]);
+i++;
+}
+}
+

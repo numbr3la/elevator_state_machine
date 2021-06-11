@@ -32,7 +32,8 @@
 
 #include <xc.h>
 #include "keyboard.h"
-#include "board4_xtal.h"
+//#include "board4_xtal.h"
+#define _XTAL_FREQ      1000000UL 
 
 // Outputs RB2:RB0
 const unsigned char columns[]= {COL_1, COL_2, COL_3};

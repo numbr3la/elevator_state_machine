@@ -1,16 +1,5 @@
 
-# 1 "main.c"
-
-
-# 7
-#pragma config FOSC = EXTRC
-#pragma config WDTE = OFF
-#pragma config PWRTE = OFF
-#pragma config BOREN = ON
-#pragma config LVP = ON
-#pragma config CPD = OFF
-#pragma config WRT = OFF
-#pragma config CP = OFF
+# 1 "lcd.c"
 
 # 26 "E:\Program Files\Microchip\xc8\v1.45\include\htc.h"
 extern const char __xc8_OPTIM_SPEED;
@@ -1470,23 +1459,3 @@ extern __nonreentrant void _delaywdt(unsigned long);
 extern __bank0 unsigned char __resetbits;
 extern __bank0 __bit __powerdown;
 extern __bank0 __bit __timeout;
-
-# 24 "main.c"
-typedef enum {
-STATE_IDLE,
-STATE_GOINGUP,
-STATE_GOINGDOWN,
-STATE_DOOROPEN,
-STATE_DOORCLOSED,
-STATE_ATTOP,
-STATE_ATBOTTOM
-
-}STATE_t;
-
-void main(void) {
-
-
-
-
-return;
-}
