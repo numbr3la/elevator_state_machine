@@ -44,6 +44,18 @@ typedef enum {
 }STATE_t;
 STATE_t mystate = STATE_IDLE;
 
+void mydelay(int milisec){
+    int periods = milisec / 10;
+    int i = 0;
+
+    do
+    {
+        
+        
+    __delay_ms(10);
+    i++;
+    }while(i < periods);
+}
 
 void buzzer(void) {
     PORTCbits.RC1=1;        // buzzer on
@@ -92,13 +104,14 @@ void door_open(char floor[]){
     LCD_Cmd(L_LINE_2); LCD_String("  Door opening  ");
     buzzer();
     LCD_Cmd(L_LINE_2); LCD_String("   Door open  ");
+    __delay_ms(1000);
 }
 
 void door_closed(char floor[]){
     LCD_Cmd(L_CLEAR);
     LCD_Cmd(L_LINE_1); LCD_String(floor);
     LCD_Cmd(L_LINE_2); LCD_String("  Door closing  ");
-    __delay_ms(1000);
+    buzzer();
     LCD_Cmd(L_LINE_2); LCD_String("   Door closed  ");
     __delay_ms(1000);
 }
@@ -124,18 +137,18 @@ void move_up(int position){
         LCD_Cmd(L_LINE_1); LCD_String(floor[i]);
         LCD_Cmd(L_LINE_4); LCD_String("    Going up  ");
         __delay_ms(200);
-        LCD_Cmd(L_LINE_4); LCD_String("                ");
+        LCD_Cmd(L_LINE_4); LCD_String("               ");
         __delay_ms(100);
-        LCD_Cmd(L_LINE_4); LCD_String("    Going up  ");
+        LCD_Cmd(L_LINE_4); LCD_String("    Going up   ");
         __delay_ms(200);
-        LCD_Cmd(L_LINE_4); LCD_String("                ");
+        LCD_Cmd(L_LINE_4); LCD_String("               ");
         __delay_ms(100);
         LCD_Cmd(L_CLEAR);  
         floor_location = i;
     }
 }
 
-unsigned char  select_floor() {
+unsigned char select_floor() {
     unsigned char tmp;
     
     LCD_Cmd(L_CLEAR); 
@@ -169,6 +182,8 @@ void main(void) {
     LCD_Init();
     floor_location = 0;
    
+    mydelay(5000);
+
     while(1){
         switch(mystate){
             case STATE_IDLE:
@@ -179,7 +194,7 @@ void main(void) {
                 }
                 if(button_location > floor_location) mystate = STATE_GOINGUP;
                 else mystate = STATE_GOINGDOWN;
-               break;
+            break;
             
             case STATE_DOOROPEN:
                 door_open(floor[floor_location]);
