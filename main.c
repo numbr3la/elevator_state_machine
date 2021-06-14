@@ -44,6 +44,13 @@ typedef enum {
 }STATE_t;
 STATE_t mystate = STATE_IDLE;
 
+
+void buzzer(void) {
+    PORTCbits.RC1=1;        // buzzer on
+    __delay_ms(1000);
+    PORTCbits.RC1=0;        // buzzer off    
+}
+
 void idle(char floor[]){
     TRISB  = 0x3F;                  // Enable button RB5 - RB0;
     LCD_Cmd(L_CLEAR);
@@ -83,9 +90,8 @@ void door_open(char floor[]){
     LCD_Cmd(L_CLEAR);
     LCD_Cmd(L_LINE_1); LCD_String(floor);
     LCD_Cmd(L_LINE_2); LCD_String("  Door opening  ");
-    __delay_ms(1000);
+    buzzer();
     LCD_Cmd(L_LINE_2); LCD_String("   Door open  ");
-    __delay_ms(1000);
 }
 
 void door_closed(char floor[]){
