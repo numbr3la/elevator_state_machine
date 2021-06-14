@@ -53,6 +53,8 @@
 
 #define L_LINE_1        0x80        // Set address to the head of 1st line 
 #define L_LINE_2        0xC0        // Set address to the head of 2st line 
+#define L_LINE_3        0x90
+#define L_LINE_4        0xD0
 
 #define L_CURSOR_L      0x10        // Cursor move left
 #define L_CURSOR_R      0x14        // Cursor move right
