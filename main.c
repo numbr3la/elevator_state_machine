@@ -111,6 +111,7 @@ void door_open(char floor[]){
     buzzer();
     LCD_Cmd(L_LINE_2); LCD_String("   Door open  ");
     __delay_ms(1000);
+    LCD_Cmd(L_CLEAR);
 }
 
 void door_closed(char floor[]){
@@ -120,6 +121,7 @@ void door_closed(char floor[]){
     buzzer();
     LCD_Cmd(L_LINE_2); LCD_String("   Door closed  ");
     __delay_ms(1000);
+    LCD_Cmd(L_CLEAR);
 }
 
 void move_down(int position){
