@@ -54,6 +54,7 @@ void mydelay(int milisec){
     do
     {
         if(PORTAbits.RA5 == BT_PRESS){
+            while(PORTAbits.RA5 == BT_PRESS);
             PORTCbits.RC2 ^= 1;
         }
         
@@ -125,14 +126,14 @@ void move_down(int position){
     for(int i = floor_location; i >= position; i--){
         LCD_Cmd(L_LINE_1); LCD_String(floor[i]);
         LCD_Cmd(L_LINE_4); LCD_String("   Going down  ");
-        __delay_ms(200);
+        mydelay(200);
         LCD_Cmd(L_LINE_4); LCD_String("                ");
-        __delay_ms(100);
+        mydelay(100);
         LCD_Cmd(L_LINE_4); LCD_String("   Going down  ");
-        __delay_ms(200);
+        mydelay(200);
         LCD_Cmd(L_LINE_4); LCD_String("                ");
         __delay_ms(100);
-        LCD_Cmd(L_CLEAR);  
+        mydelay(L_CLEAR);  
         floor_location = i;
     }
 }
@@ -141,13 +142,13 @@ void move_up(int position){
     for(int i = floor_location; i <= position; i++){
         LCD_Cmd(L_LINE_1); LCD_String(floor[i]);
         LCD_Cmd(L_LINE_4); LCD_String("    Going up  ");
-        __delay_ms(200);
+        mydelay(200);
         LCD_Cmd(L_LINE_4); LCD_String("               ");
-        __delay_ms(100);
+        mydelay(100);
         LCD_Cmd(L_LINE_4); LCD_String("    Going up   ");
-        __delay_ms(200);
+        mydelay(200);
         LCD_Cmd(L_LINE_4); LCD_String("               ");
-        __delay_ms(100);
+        mydelay(100);
         LCD_Cmd(L_CLEAR);  
         floor_location = i;
     }
@@ -186,8 +187,6 @@ void main(void) {
     
     LCD_Init();
     floor_location = 0;
-   
-    mydelay(5000);
 
     while(1){
         switch(mystate){
