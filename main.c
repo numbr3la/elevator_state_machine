@@ -47,10 +47,15 @@ STATE_t mystate = STATE_IDLE;
 void mydelay(int milisec){
     int periods = milisec / 10;
     int i = 0;
-
+    
+    ADCON1 = 0x06;
+    TRISA |= 0x20;
+    
     do
     {
-        
+        if(PORTAbits.RA5 == BT_PRESS){
+            PORTCbits.RC2 ^= 1;
+        }
         
     __delay_ms(10);
     i++;
