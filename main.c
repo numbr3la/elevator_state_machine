@@ -211,6 +211,7 @@ void main(void) {
                 button_location = (int) key - 48;
                 
                 if(key == 255){ mystate = STATE_IDLE; break ;}
+                if(button_location > 5) {mystate = STATE_IDLE; break;}
                 if(button_location > floor_location) {
                     mystate = STATE_GOINGUP;
                     break;
