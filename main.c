@@ -25,8 +25,7 @@ static const char *floor[] = {" --  PARTER  -- ",
                               "   --  1  --", 
                               "   --  2  --",
                               "   --  3  --",
-                              "   --  4  --",
-                              "   --  5  --"};
+                              "   --  4  --"};
 
 int floor_location;
 int button_location;
@@ -94,10 +93,6 @@ void idle(char floor[]){
         }
         if(PORTBbits.RB4 == BT_PRESS){
             button_location = 4;
-            break;
-        }
-        if(PORTBbits.RB5 == BT_PRESS){
-            button_location = 5;
             break;
         }
     }
@@ -213,7 +208,7 @@ void main(void) {
                 button_location = (int) key - 48;
                 
                 if(key == 255){ mystate = STATE_IDLE; break ;}
-                if(button_location > 5) {mystate = STATE_IDLE; break;}
+                if(button_location > 4) {mystate = STATE_IDLE; break;}
                 if(button_location > floor_location) {
                     mystate = STATE_GOINGUP;
                     break;
