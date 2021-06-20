@@ -120,7 +120,7 @@ void door_closed(char floor[]){
 }
 
 void move_down(int position){
-    unsigned char malfunction = 0;
+    
     for(int i = floor_location; i >= position; i--){
         LCD_Cmd(L_LINE_1); LCD_String(floor[i]);
         LCD_Cmd(L_LINE_4); LCD_String("   Going down  ");
@@ -135,8 +135,16 @@ void move_down(int position){
         //mydelay(L_CLEAR); 
         LCD_Cmd(L_LINE_3); LCD_String("       -");
         if(!floor_passed()) {
-            malfunction = 1;
+            LCD_Cmd(L_CLEAR);
+        LCD_Cmd(L_LINE_1); LCD_String("Cos sie zepsulo");
+        LCD_Cmd(L_LINE_2); LCD_String("   X_X   ");
+        LCD_Cmd(L_LINE_3); LCD_String("      404");
+        LCD_Cmd(L_LINE_4); LCD_String(" floor not found");
+        while(1) {
+            if(PORTBbits.RB5 == BT_PRESS){
             break;
+        }
+            }
         } 
         else {
         floor_location = i;
@@ -144,18 +152,11 @@ void move_down(int position){
         
         LCD_Cmd(L_CLEAR);
     }
-    if(malfunction == 1) {
-        LCD_Cmd(L_CLEAR);
-        LCD_Cmd(L_LINE_1); LCD_String("Cos sie zepsulo");
-        LCD_Cmd(L_LINE_2); LCD_String("   X_X   ");
-        LCD_Cmd(L_LINE_3); LCD_String("      404");
-        LCD_Cmd(L_LINE_4); LCD_String(" floor not found");
-        while(1) {}
-    }
+    
 }
 
 void move_up(int position){
-unsigned char malfunction = 0;
+    
     for(int i = floor_location; i <= position; i++){
         LCD_Cmd(L_LINE_1); LCD_String(floor[i]);
         LCD_Cmd(L_LINE_4); LCD_String("   Going up  ");
@@ -169,23 +170,23 @@ unsigned char malfunction = 0;
         LCD_Cmd(L_LINE_4); LCD_String("   Going up  ");
         //mydelay(L_CLEAR); 
         LCD_Cmd(L_LINE_3); LCD_String("       +");
-        if(!floor_passed()) {
-            malfunction = 1;
+       if(!floor_passed()) {
+            LCD_Cmd(L_CLEAR);
+        LCD_Cmd(L_LINE_1); LCD_String("Cos sie zepsulo");
+        LCD_Cmd(L_LINE_2); LCD_String("   X_X   ");
+        LCD_Cmd(L_LINE_3); LCD_String("      404");
+        LCD_Cmd(L_LINE_4); LCD_String(" floor not found");
+        while(1) {
+            if(PORTBbits.RB5 == BT_PRESS){
             break;
+        }
+            }
         } 
         else {
         floor_location = i;
         }
         
         LCD_Cmd(L_CLEAR);
-    }
-    if(malfunction == 1) {
-        LCD_Cmd(L_CLEAR);
-        LCD_Cmd(L_LINE_1); LCD_String("Cos sie zepsulo");
-        LCD_Cmd(L_LINE_2); LCD_String("   X_X   ");
-        LCD_Cmd(L_LINE_3); LCD_String("      404");
-        LCD_Cmd(L_LINE_4); LCD_String(" floor not found");
-        while(1) {}
     }
 }
 
