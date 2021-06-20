@@ -120,34 +120,72 @@ void door_closed(char floor[]){
 }
 
 void move_down(int position){
+    unsigned char malfunction = 0;
     for(int i = floor_location; i >= position; i--){
         LCD_Cmd(L_LINE_1); LCD_String(floor[i]);
         LCD_Cmd(L_LINE_4); LCD_String("   Going down  ");
-        mydelay(200);
-        LCD_Cmd(L_LINE_4); LCD_String("                ");
         mydelay(100);
-        LCD_Cmd(L_LINE_4); LCD_String("   Going down  ");
-        mydelay(200);
         LCD_Cmd(L_LINE_4); LCD_String("                ");
-        __delay_ms(100);
-        mydelay(L_CLEAR);  
+        mydelay(50);
+        LCD_Cmd(L_LINE_4); LCD_String("   Going down  ");
+        mydelay(100);
+        LCD_Cmd(L_LINE_4); LCD_String("                ");
+        __delay_ms(50);
+        LCD_Cmd(L_LINE_4); LCD_String("   Going down  ");
+        //mydelay(L_CLEAR); 
+        LCD_Cmd(L_LINE_3); LCD_String("       -");
+        if(!floor_passed()) {
+            malfunction = 1;
+            break;
+        } 
+        else {
         floor_location = i;
+        }
+        
+        LCD_Cmd(L_CLEAR);
+    }
+    if(malfunction == 1) {
+        LCD_Cmd(L_CLEAR);
+        LCD_Cmd(L_LINE_1); LCD_String("Cos sie zepsulo");
+        LCD_Cmd(L_LINE_2); LCD_String("   X_X   ");
+        LCD_Cmd(L_LINE_3); LCD_String("      404");
+        LCD_Cmd(L_LINE_4); LCD_String(" floor not found");
+        while(1) {}
     }
 }
 
 void move_up(int position){
+unsigned char malfunction = 0;
     for(int i = floor_location; i <= position; i++){
         LCD_Cmd(L_LINE_1); LCD_String(floor[i]);
-        LCD_Cmd(L_LINE_4); LCD_String("    Going up  ");
-        mydelay(200);
-        LCD_Cmd(L_LINE_4); LCD_String("               ");
+        LCD_Cmd(L_LINE_4); LCD_String("   Going up  ");
         mydelay(100);
-        LCD_Cmd(L_LINE_4); LCD_String("    Going up   ");
-        mydelay(200);
-        LCD_Cmd(L_LINE_4); LCD_String("               ");
+        LCD_Cmd(L_LINE_4); LCD_String("                ");
+        mydelay(50);
+        LCD_Cmd(L_LINE_4); LCD_String("   Going up  ");
         mydelay(100);
-        LCD_Cmd(L_CLEAR);  
+        LCD_Cmd(L_LINE_4); LCD_String("                ");
+        __delay_ms(50);
+        LCD_Cmd(L_LINE_4); LCD_String("   Going up  ");
+        //mydelay(L_CLEAR); 
+        LCD_Cmd(L_LINE_3); LCD_String("       +");
+        if(!floor_passed()) {
+            malfunction = 1;
+            break;
+        } 
+        else {
         floor_location = i;
+        }
+        
+        LCD_Cmd(L_CLEAR);
+    }
+    if(malfunction == 1) {
+        LCD_Cmd(L_CLEAR);
+        LCD_Cmd(L_LINE_1); LCD_String("Cos sie zepsulo");
+        LCD_Cmd(L_LINE_2); LCD_String("   X_X   ");
+        LCD_Cmd(L_LINE_3); LCD_String("      404");
+        LCD_Cmd(L_LINE_4); LCD_String(" floor not found");
+        while(1) {}
     }
 }
 
@@ -173,6 +211,27 @@ unsigned char select_floor() {
     
     LCD_Cmd(L_CLEAR);
     return tmp;
+}
+
+int floor_passed() {
+    int periods = 500;
+    int i = 0;
+    
+    ADCON1 = 0x06;
+    TRISB |= 0x20;
+    
+    do
+    {
+        if(PORTBbits.RB5 == BT_PRESS){
+            while(PORTBbits.RB5 == BT_PRESS);
+            return 1;
+        }
+        
+    __delay_ms(10);
+    i++;
+    }while(i < periods);
+    
+    return 0;
 }
 
 void main(void) {
