@@ -1,2 +1,2 @@
-# Maszyna_stanowa
-Wspólny projekt wykonany na przedmiot Systemy Wbudowane na UJK w semestrze letnim 2020/2021.
+# State machine project
+A state machine project of elevator made for 40-pin PIC Microcontroller - PIC16F877a  designed using RISC architecture.
